@@ -1,0 +1,31 @@
+body {
+    background-color: #fffbe2;
+    color: black;
+}
+
+.menu {
+    background-color: a5933d;
+    color: white;
+}
+
+.button {
+    background-color: #9aba1b;
+    border-radius: 12px;
+    border: 1px solid #9aba1b;
+}
+
+.online {
+    color: #aae24b;
+}
+
+.offline {
+    color: #e1b04a;
+}
+
+.danger-dark {
+    color: red;
+}
+
+.danger_light {
+    color: yellow;
+}
