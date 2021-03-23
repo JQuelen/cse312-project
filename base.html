@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    This is a new page
+  </head>
+  <body>
+    {{if current_user.is_authenticated}}
+    <h6>You are logged in as: {{name}}</h6>
+    {{endif}}
+    {{if not current_user.is_authenticated}}
+    <h6>You are not logged in</h6>
+    <a href="login.html">Login Here</a>
+    <a href="signup.html">Signup Here</a>
+    {{endif}}
+  </body>
+</html>
