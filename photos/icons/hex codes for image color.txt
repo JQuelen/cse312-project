@@ -1,0 +1,4 @@
+color hex for images
+black - 000000
+purple - 7b6cd8
+green - 60db3a
