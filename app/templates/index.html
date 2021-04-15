@@ -1,10 +1,12 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <h1>This is a basic html page</h1>
-  </head>
-  <body>
-    <p>press this putton to interact with the backend<p/>
-      <button type="button">Click Here</button>
-  </body>
-</html>
+{{ extends "base.html" }}
+
+{{block content}}
+    {{if current_user.is_authenticated}}
+    <h6>Your are logged in as: {{name}}</h6>
+    {{endif}}
+    {{if not current_user.is_authenticated}}
+    <h6>You are not logged in</h6>
+    <a href="login.html">Login Here</a>
+    <a href="signup.html">Signup Here</a>
+    {{endif}} 
+{{end block}}

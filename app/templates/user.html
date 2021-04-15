@@ -1,0 +1,13 @@
+{{extends "base.html"}}
+
+{{block content}}
+  <table>
+    <tr>
+      <td><img src="{{user.avatar}}"></td>
+      <td>
+	<h1>User: {{user.username}}</h1>
+      </td>
+      <a href="editProfile.html">Edit your profile</a>
+    </tr>
+  </table>
+{{end block}}  

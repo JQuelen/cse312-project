@@ -1,6 +1,6 @@
-<!DOCTYPE html>
-<html>
-  <body>
+{{extends "base.html"}}
+
+{{block content}}
     <div class="login-prompts">
       <div class="username">
 	<div>
@@ -12,9 +12,8 @@
 	  <button name="cancel" onclick="location.href='index.html'">Cancel</button>
 	</div>
 	<div>
-	  <a href="signup.html">Don't have an account? Sign up</a>
+	  <a href="signup.html">Don't have an account? Sign up here</a>
 	</div>
       </div>
     </div>
-  </body>
-  </html>
+{{end block}}
