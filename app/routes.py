@@ -5,6 +5,7 @@ temp_db = {"user": "  "}
 
 @application.route('/')
 @application.route('/index')
+@application.route('/index.html')
 def index():
     user = temp_db["user"]
     return render_template("test.html", temp_db=user)
