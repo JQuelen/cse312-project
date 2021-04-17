@@ -1,19 +1,36 @@
-{{extends "base.html"}}
+{% extends "base.html" %}
 
-{{block content}}
-    <div class="login-prompts">
-      <div class="username">
-	<div>
-	  <h1>Username</h1>
-	  <textarea id="username" rows="1" cols="20"></textarea>
-	  <h1>Password</h1>
-	  <textarea id="password" rows="1" cols="20"></textarea>
-	  <button type="Log In">Log In</button>
-	  <button name="cancel" onclick="location.href='index.html'">Cancel</button>
-	</div>
-	<div>
-	  <a href="signup.html">Don't have an account? Sign up here</a>
-	</div>
-      </div>
+{% block content %}
+    Login
+    <form action="" method="post" novalidate>
+      {{ form.hidden_tag() }}
+      <!--username-->
+      <div>
+	{{ form.username.label }}
+	<br>
+	{{ form.username(size==32) }}
+	<br>
+	{% for error in form.username.errors %}
+	<span style="color: red;">[{{ error }}]</span>
+	{% endfor %}
     </div>
-{{end block}}
+    <!--password-->  
+    <div>
+      {{ form.password.label }}
+      <br>
+      {{ form.password(size=32) }}
+      <br>
+      {% for error in form.password.errors %}
+      <span style="color: red;">[{{ error }}]</span>
+      {% endfor %}
+    </div>
+    <div>
+      {{ form.remember_me() }}
+      {{ form.remember_me.label }}
+    </div>
+    <div>
+      {{ form.submit() }}
+    </div>
+    </form>
+      <a href="signup.html">Don't have an account? Sign up here</a>
+{% endblock %}

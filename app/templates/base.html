@@ -21,6 +21,16 @@
       <a href="user.html">Profile</a>
       <a href="index.heml">Logout</a>
     <div>
-    {{block content}}{{end block}} 
+    <br>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+      {% for message in messages %}
+      <li>{{message}}</li>
+      {% endfor %}
+      </ui>
+    {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %} 
   </body>
 </html>
