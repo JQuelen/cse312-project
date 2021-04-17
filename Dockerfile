@@ -16,4 +16,4 @@ RUN chmod +x /wait
 
 RUN export FLASK_DEBUG=1
 CMD /wait
-CMD /wait && ["python", "-m", "flask", "run", "--host=0.0.0.0"]
+CMD ["python", "-m", "flask", "run", "--host=0.0.0.0"]
