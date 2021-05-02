@@ -14,5 +14,5 @@ class RegistrationForm(FlaskForm):
     submit = SubmitField('Sign Up')   
 
 class EditProfileForm(FlaskForm):
-    listOfPets = StringField('ListOfPets')
+    listOfPets = StringField('List Of Pets')
     submit = SubmitField('Confirm') 

@@ -57,7 +57,6 @@ def register():
     form = RegistrationForm()
 
     if form.validate_on_submit():
-
         # Salt and hash password
         pw = form.password.data.encode('utf-8')
         salt = gensalt()
@@ -77,9 +76,25 @@ def register():
 
 @app.route("/profile", methods=["GET","POST"])
 def user():
-    return render_template("user.html", name="fred", listOfPets="tom")
+    cookie = request.cookies.get('userauth')
+    user_data = db.get_user_from_cookie(cookie)[0]
+
+    return render_template("user.html", name=f"{user_data['username']}", listOfPets=f"{user_data['listOfPets']}")
 
 @app.route("/editProfile", methods=["GET","POST"])
 def editProfile():
+    cookie = request.cookies.get('userauth')
+    user_data = db.get_user_from_cookie(cookie)[0]
     form = EditProfileForm()
+    if form.validate_on_submit():
+        user_data['listOfPets'] = form.listOfPets.data
+
+        db.update_user(username=user_data['username'], 
+            password=user_data['password'], 
+            salt=user_data['salt'], 
+            token=user_data['token'], 
+            listOfPets=user_data['listOfPets'])
+        
+        return redirect(url_for('user'))
+
     return render_template("editProfile.html", form=form)
