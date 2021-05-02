@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    This is a new page
+    Petstagram
   </head>
   <body>
 	  <!--{{if current_user.is_authenticated}}-->
@@ -12,5 +12,34 @@
     <a href="login.html">Login Here</a>
     <a href="signup.html">Signup Here</a>
     <!--{{endif}}-->
+
+    <style>
+      bigText {
+        font-size: 50px;
+      }
+      normalText {
+        font-size: 30px;
+      }
+    </style>
+    <h1 class="bigText">Petstagram<h1>
+    <div>
+      <a href="index.html">Home</a>
+      {{if not current_user.is_authenticated}}
+      <a href="login.html">Login</a>
+      {{else}}
+      <a href="user.html">Profile</a>
+      <a href="index.heml">Logout</a>
+    <div>
+    <br>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+      {% for message in messages %}
+      <li>{{message}}</li>
+      {% endfor %}
+      </ui>
+    {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %} 
   </body>
 </html>
