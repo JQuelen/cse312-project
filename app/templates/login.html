@@ -1,36 +1,36 @@
 {% extends "base.html" %}
 
 {% block content %}
-    Login
+    <h2>Login</h2>
     <form action="" method="post" novalidate>
       {{ form.hidden_tag() }}
       <!--username-->
       <div>
-	{{ form.username.label }}
-	<br>
-	{{ form.username(size=32) }}
-	<br>
-	{% for error in form.username.errors %}
-	<span style="color: red;">[{{ error }}]</span>
-	{% endfor %}
-    </div>
-    <!--password-->  
-    <div>
-      {{ form.password.label }}
-      <br>
-      {{ form.password(size=32) }}
-      <br>
-      {% for error in form.password.errors %}
-      <span style="color: red;">[{{ error }}]</span>
-      {% endfor %}
-    </div>
-    <div>
-      {{ form.remember_me() }}
-      {{ form.remember_me.label }}
-    </div>
-    <div>
-      {{ form.submit() }}
-    </div>
+        {{ form.username.label }}
+        <br>
+        {{ form.username(size=32) }}
+        <br>
+        {% for error in form.username.errors %}
+          <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+      </div>
+      <!--password-->  
+      <div>
+        {{ form.password.label }}
+        <br>
+        {{ form.password(size=32) }}
+        <br>
+        {% for error in form.password.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+      </div>
+      <div>
+        {{ form.remember_me() }}
+        {{ form.remember_me.label }}
+      </div>
+      <div>
+        {{ form.submit() }}
+      </div>
     </form>
-      <a href="register">Don't have an account? Sign up here</a>
+    <a href="register">Don't have an account? Sign up here</a>
 {% endblock %}
