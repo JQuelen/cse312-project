@@ -10,16 +10,16 @@ temp_db = {"user": "  "}
 @app.route('/index.html')
 def index():
     user = temp_db["user"]
-    return render_template("test.html", temp_db=user)
+    return render_template("index.html", name="ted")
 
 @application.route('/login', methods=["GET", "POST"])
 def login():
     form = LoginForm()
     #user = temp_db["user"]
     #temp_db["user"] = methods["POST"].username
-    return render_template("login.html")
+    return render_template("login.html",form=form)
 
 @application.route("/register", methods=["GET", "POST"])
 def register():
-    form = RegistrationForm
-    return render_template("register.html")
+    form = RegistrationForm()
+    return render_template("register.html",form=form)
