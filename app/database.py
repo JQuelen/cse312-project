@@ -6,14 +6,12 @@ class Database:
         # Petstagram Database
         self._db = self._client["PDB"]
 
+        # User Collection
         self._users = self._db["users"]
 
-    def db(self):
-        return self._db
-    
     def get_user(self, username):
-        return self._users.find({"username":f"{username}"})
+        return self._users.find_one({"username":f"{username}"})
     
-    def update_user(self, username, password, salt=b'', session_cookie=""):
-        user_data = { "username": f"{username}", "password": password, "salt": salt, "session_cookie":f"{session_cookie}"}
+    def update_user(self, username, password, salt=b'', token=''):
+        user_data = { "username": f"{username}", "password": password, "salt": salt, "token": token}
         self._users.update({"username":f"{username}"}, user_data, upsert=True)
