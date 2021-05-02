@@ -7,6 +7,7 @@ from flask import make_response
 from flask import request
 from app.forms import LoginForm
 from app.forms import RegistrationForm
+from app.forms import EditProfileForm
 from app.database import Database
 from bcrypt import gensalt, hashpw
 from app.authentication import create_auth_token
@@ -72,3 +73,13 @@ def register():
         return redirect(url_for('login'))
     
     return render_template("register.html", title='Register', form=form)
+
+
+@app.route("/profile", methods=["GET","POST"])
+def user():
+    return render_template("user.html", name="fred", listOfPets="tom")
+
+@app.route("/editProfile", methods=["GET","POST"])
+def editProfile():
+    form = EditProfileForm()
+    return render_template("editProfile.html", form=form)
