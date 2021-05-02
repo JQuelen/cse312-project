@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-    
-  </head>
-  <body>
+    {% if title %}
+      <title>{{ title }} - Petstagram</title>
+    {% else %}
+      <title>Petstagram</title>
+    {% endif %}
+
     <style>
       bigText {
         font-size: 50px;
@@ -12,7 +15,25 @@
         font-size: 30px;
       }
     </style>
-    <h1 class="bigText">Petstagram</h1>
+  </head>
+  <body>
+    <div>
+      <h1 class="bigText">Petstagram</h1>
+      <a href="{{ url_for('index') }}">Home</a>
+      <a href="{{ url_for('login') }}">Login</a>
+      <a href="{{ url_for('register') }}">Sign Up</a>
+    </div>
+    <hr>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+      <ul>
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    {% endwith %}
     {% block content %}{% endblock %} 
   </body>
 </html>
