@@ -8,6 +8,7 @@ from flask import request
 from app.forms import LoginForm
 from app.forms import RegistrationForm
 from app.forms import EditProfileForm
+from app.forms import UploadImageForm
 from app.database import Database
 from bcrypt import gensalt, hashpw
 from app.authentication import create_auth_token
@@ -98,3 +99,8 @@ def editProfile():
         return redirect(url_for('user'))
 
     return render_template("editProfile.html", form=form)
+
+@app.route("/upload", methods=["GET","POST"])
+def upload():
+    form = UploadImageForm()
+    return render_template("upload.html")     
