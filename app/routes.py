@@ -20,10 +20,26 @@ db = Database()
 @app.route('/index.html')
 def index():
     cookie_val = request.cookies.get('userauth')
-    return render_template(url_for('index'), cookie = cookie_val)
+    if cookie_val != None and cookie_val != "":
+        # Get list of users online from database
+        online_users = list(db.get_users_online())
+        users = []
+        for user in online_users:
+            users.append(user['username'])
+        resp = render_template(url_for('index'), cookie=cookie_val, users=users)
+
+    else:
+        resp = redirect(url_for('login'))
+    return resp
 
 @app.route('/login', methods=["GET", "POST"])
 def login():
+    # Check if user is already logged in
+    cookie = request.cookies.get('userauth')
+    if cookie != None and cookie != "":
+        return redirect('index')
+
+
     form = LoginForm()
     if form.validate_on_submit():
 
@@ -41,6 +57,16 @@ def login():
             if hashed_input == hashed_stored:
                 flash('Hi, {}'.format(
                     user_data['username']))
+                
+                # Set user online
+                db.update_user(user_data['username'], 
+                    user_data['password'], 
+                    salt=user_data['salt'], 
+                    token=user_data['token'], 
+                    listOfPets=user_data['listOfPets'],
+                    logged_in=True
+                )
+
                 # Redirect to home page
                 resp = make_response(redirect(url_for('index')))
                 # Set authentication cookie
@@ -51,10 +77,16 @@ def login():
                 return redirect(url_for('login'))
 
 
-    return render_template("login.html",title='Sign In', form=form)
+    return render_template("login.html",title='Sign In', form=form, logged_out=True)
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
+    # Check if user is already logged in
+    cookie = request.cookies.get('userauth')
+    if cookie != None and cookie != "":
+        return redirect('index')
+
+    
     form = RegistrationForm()
 
     if form.validate_on_submit():
@@ -64,23 +96,28 @@ def register():
         hashed = hashpw(pw, salt)
         token = create_auth_token()
 
-        db.update_user(form.username.data, hashed, salt=salt, token=token)
+        db.update_user(form.username.data, hashed, salt=salt, token=token, listOfPets='')
 
         user_data = db.get_user(form.username.data)
 
-        flash('Registration requested for user {}'.format(
+        flash('You\'ve registered as {}. Go ahead and login!'.format(
             user_data['username']))
         return redirect(url_for('login'))
     
-    return render_template("register.html", title='Register', form=form)
+    return render_template("register.html", title='Register', form=form, logged_out=True)
 
 
 @app.route("/profile", methods=["GET","POST"])
 def user():
     cookie = request.cookies.get('userauth')
-    user_data = db.get_user_from_cookie(cookie)[0]
 
-    return render_template("user.html", name=f"{user_data['username']}", listOfPets=f"{user_data['listOfPets']}")
+    if cookie != None and cookie != "":
+        user_data = db.get_user_from_cookie(cookie)[0]
+        resp = render_template("user.html", name=f"{user_data['username']}", listOfPets=f"{user_data['listOfPets']}")
+    else:
+        resp = redirect(url_for('login'))
+
+    return resp
 
 @app.route("/editProfile", methods=["GET","POST"])
 def editProfile():
@@ -103,4 +140,4 @@ def editProfile():
 @app.route("/upload", methods=["GET","POST"])
 def upload():
     form = UploadImageForm()
-    return render_template("upload.html")     
+    return render_template("upload.html", form=form)

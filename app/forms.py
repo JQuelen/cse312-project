@@ -1,4 +1,5 @@
 from flask_wtf import FlaskForm
+from flask_wtf.file import FileField, FileAllowed, FileRequired
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, FileField
 from wtforms.validators import DataRequired
 
@@ -15,8 +16,19 @@ class RegistrationForm(FlaskForm):
 
 class EditProfileForm(FlaskForm):
     listOfPets = StringField('List Of Pets')
-    submit = SubmitField('Confirm') 
+    submit = SubmitField('Confirm')
+
+    image = FileField('Profile Pic', validators=[
+        FileRequired(),
+        FileAllowed(['jpg', 'png'], 'Images only!')
+    ])
+    submit_pic = SubmitField('Upload')
+
+
 
 class UploadImageForm(FlaskForm):
-    image = FileField('image')
+    image = FileField('image', validators=[
+        FileRequired(),
+        FileAllowed(['jpg', 'png'], 'Images only!')
+    ])
     submit = SubmitField('Upload')

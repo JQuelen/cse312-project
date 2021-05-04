@@ -1,15 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
-     <p>{{ name }}</p>
      <table align="right">
-          <caption>Users Online</caption>
+     <caption>Logged In</caption>
+     {% for user in users %}
           <tr>
-               <th>Name1</th>
+               <th>{{ user }}</th>
           </tr>
-          <tr>
-               <th>Name2</th>
-          </tr>
+     {% endfor %}
      </table>
+
      <a href="/upload">Upload a Photo!</a>
 {% endblock %}

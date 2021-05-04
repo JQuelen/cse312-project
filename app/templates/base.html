@@ -6,26 +6,20 @@
     {% else %}
       <title>Petstagram</title>
     {% endif %}
-
-    <style>
-      bigText {
-        font-size: 50px;
-      }
-      normalText {
-        font-size: 30px;
-      }
-    </style>
   </head>
   <body>
-    <div>
-      <h1 class="bigText">Petstagram</h1>
-      <a href="{{ url_for('index') }}">Home</a>
+    <div class='logo'>
+      <img src="static/logo.jpg" style="width:300px;height:100px;">
+    </div>
+    <br>
+    {% if logged_out %}
       <a href="{{ url_for('login') }}">Login</a>
       <a href="{{ url_for('register') }}">Sign Up</a>
+    {% else %}
+      <a href="{{ url_for('index') }}">Home</a>
       <a href="{{ url_for('user') }}">Profile</a>
-    </div>
+    {% endif %}
     <hr>
-
     {% with messages = get_flashed_messages() %}
       {% if messages %}
       <ul>
