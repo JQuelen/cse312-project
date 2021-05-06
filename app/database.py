@@ -12,11 +12,12 @@ class Database:
         # Photos Collection
         self._photos = self._db["photos"]
 
+
     def get_user(self, username):
         return self._users.find_one({"username":f"{username}"})
     
-    def update_user(self, username, password, salt=b'', token='', listOfPets='', logged_in=False, photos=[]):
-        user_data = { "username": f"{username}", "password": password, "salt": salt, "token": token, "listOfPets":f"{listOfPets}", "logged_in":logged_in, "photos":photos}
+    def update_user(self, username, password, salt=b'', token='', listOfPets='', logged_in=False, photos=[], message=''):
+        user_data = { "username": f"{username}", "password": password, "salt": salt, "token": token, "listOfPets":f"{listOfPets}", "logged_in":logged_in, "photos":photos, "message":message}
         self._users.update({"username":f"{username}"}, user_data, upsert=True)
     
     def get_user_from_cookie(self, cookie):

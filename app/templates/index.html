@@ -5,7 +5,10 @@
      <caption>Logged In</caption>
      {% for user in users %}
           <tr>
-               <th>{{ user }}</th>
+               <th>{{ user }}
+                    <a href="/message">Message This User</a>
+               </th>
+
           </tr>
      {% endfor %}
      </table>

@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed, FileRequired
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, FileField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, FileField, TextAreaField
 from wtforms.validators import DataRequired
 
 class LoginForm(FlaskForm):
@@ -30,3 +30,8 @@ class UploadImageForm(FlaskForm):
         FileAllowed(['jpg', 'png'], 'Images only!')
     ])
     #submit = SubmitField('Upload')
+
+class MessageForm(FlaskForm):
+    message = TextAreaField('message', validators=[
+        DataRequired()])
+    submit = SubmitField('Submit')

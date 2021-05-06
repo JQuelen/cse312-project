@@ -9,6 +9,7 @@ from app.forms import LoginForm
 from app.forms import RegistrationForm
 from app.forms import EditProfileForm
 from app.forms import UploadImageForm
+from app.forms import MessageForm
 from app.database import Database
 from bcrypt import gensalt, hashpw
 from app.authentication import create_auth_token
@@ -73,7 +74,8 @@ def login():
                     salt=user_data['salt'], 
                     token=user_data['token'], 
                     listOfPets=user_data['listOfPets'],
-                    logged_in=True
+                    logged_in=True,
+                    message=''
                 )
 
                 # Redirect to home page
@@ -105,7 +107,7 @@ def register():
         hashed = hashpw(pw, salt)
         token = create_auth_token()
 
-        db.update_user(form.username.data, hashed, salt=salt, token=token, listOfPets='')
+        db.update_user(form.username.data, hashed, salt=salt, token=token, listOfPets='', message='')
 
         user_data = db.get_user(form.username.data)
 
@@ -140,7 +142,8 @@ def editProfile():
             password=user_data['password'], 
             salt=user_data['salt'], 
             token=user_data['token'], 
-            listOfPets=user_data['listOfPets'])
+            listOfPets=user_data['listOfPets'],
+            message='')
         
         return redirect(url_for('user'))
 
@@ -178,3 +181,12 @@ def upload():
             )
             
             return redirect(url_for( 'index' ))
+
+@app.route("/message", methods=["GET","POST"])
+def message():
+    cookie = request.cookies.get('userauth')
+    user_data = db.get_user_from_cookie(cookie)[0]
+    form=MessageForm()
+    if form.validate_on_submit():
+        user_data['message'] = form.message.data
+    return render_template("dms.html", message="f,{user_data['message']},",form=form)
