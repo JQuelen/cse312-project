@@ -9,7 +9,7 @@
   </head>
   <body>
     <div class='logo'>
-      <img src="static/logo.jpg" style="width:300px;height:100px;">
+      <img src="static/logo.jpg" style="width:300px;height:100px;" href="{{ url_for('index') }}">
     </div>
     <br>
     {% if logged_out %}

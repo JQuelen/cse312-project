@@ -11,4 +11,22 @@
      </table>
 
      <a href="/upload">Upload a Photo!</a>
+
+     <br>
+     <br>
+     {% for photo in photos %}
+          {% for key, value in photo.items() %}
+               {% if key == "username" %}
+                    <h4>{{ value }}</h4>
+               {% endif %}
+               {% if key == "upload_date" %}
+                    <p><em>Uploaded: {{ value }}</em></p>
+               {% endif %}
+               {% if key == "photo_path" %}
+                    <img src="{{ value }}" style="width:300px;">
+               {% endif %}
+          {% endfor %}
+          <hr>
+     {% endfor %}
+
 {% endblock %}

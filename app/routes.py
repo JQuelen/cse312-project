@@ -12,6 +12,9 @@ from app.forms import UploadImageForm
 from app.database import Database
 from bcrypt import gensalt, hashpw
 from app.authentication import create_auth_token
+from werkzeug.utils import secure_filename
+import os
+from datetime import datetime
 
 db = Database()
 
@@ -26,7 +29,13 @@ def index():
         users = []
         for user in online_users:
             users.append(user['username'])
-        resp = render_template(url_for('index'), cookie=cookie_val, users=users)
+        
+        # Get list of images from static/uploaded
+        photos = []
+        for photo in db.get_photos():
+            photos.append(photo)
+        
+        resp = render_template(url_for('index'), cookie=cookie_val, users=users, photos=photos)
 
     else:
         resp = redirect(url_for('login'))
@@ -137,7 +146,35 @@ def editProfile():
 
     return render_template("editProfile.html", form=form)
 
-@app.route("/upload", methods=["GET","POST"])
+@app.route("/upload")
+def upload_form():
+    return render_template("upload.html")
+
+@app.route("/upload", methods=["POST"])
 def upload():
-    form = UploadImageForm()
-    return render_template("upload.html", form=form)
+    if 'file' not in request.files:
+        return redirect(request.url)
+
+    file = request.files['file']
+
+    if file.filename == '':
+        return redirect(request.url)
+    if file:
+        if ".png" in file.filename or ".jpg" in file.filename:
+            cookie = request.cookies.get('userauth')
+            user_data = db.get_user_from_cookie(cookie)[0]
+            username = user_data['username']
+
+            filename = secure_filename(file.filename)
+            path = os.path.join(os.path.dirname(__file__), f"static/uploaded/{filename}")
+            file.save(path)
+
+            uploadDate = datetime.today()
+
+            db.update_photo(
+                photo_path=f"static/uploaded/{filename}",
+                username=username,
+                upload_date=uploadDate
+            )
+            
+            return redirect(url_for( 'index' ))
