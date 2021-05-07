@@ -1,20 +1,22 @@
 from app import app
-from flask import render_template
-from flask import flash
-from flask import redirect
-from flask import url_for
-from flask import make_response
-from flask import request
+from app.authentication import create_auth_token
+from app.database import Database
 from app.forms import LoginForm
 from app.forms import RegistrationForm
 from app.forms import EditProfileForm
 from app.forms import UploadImageForm
 from app.forms import MessageForm
 from app.forms import ReplyForm
-from app.database import Database
-from bcrypt import gensalt, hashpw
-from app.authentication import create_auth_token
+
+from flask import render_template
+from flask import flash
+from flask import redirect
+from flask import url_for
+from flask import make_response
+from flask import request
 from werkzeug.utils import secure_filename
+
+from bcrypt import gensalt, hashpw
 import os
 from datetime import datetime
 
@@ -31,8 +33,6 @@ def index():
         current_user = user_data['username']
 
         messages = user_data['messages']
-        #messages.pop('none')
-
 
         # Get list of users online from database
         online_users = list(db.get_users_online())
