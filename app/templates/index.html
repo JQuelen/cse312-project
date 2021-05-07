@@ -4,12 +4,20 @@
      <table align="right">
      <caption>Logged In</caption>
      {% for user in users %}
-          <tr>
-               <th>{{ user }}
-                    <a href="/message">Message This User</a>
-               </th>
-
-          </tr>
+          {% if user != current_user %}
+               <tr>
+                    <th>
+                         <p>
+                              {{ user }} (<a href="/message?user={{ user }}">DM</a>)
+                              {% for key, value in messages.items() %}
+                                   {% if key == user %}
+                                        <a href="/reply?user={{ user }}"> <img src="/static/dm_notify_img.jpg" style="width:30px;"> </a>
+                                   {% endif %}
+                              {% endfor %}
+                         </p>
+                    </th>
+               </tr>
+          {% endif %}
      {% endfor %}
      </table>
 

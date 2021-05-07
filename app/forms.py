@@ -15,14 +15,8 @@ class RegistrationForm(FlaskForm):
     submit = SubmitField('Sign Up')   
 
 class EditProfileForm(FlaskForm):
-    listOfPets = StringField('List Of Pets')
-    submit = SubmitField('Confirm')
-
-    image = FileField('Profile Pic', validators=[
-        FileRequired(),
-        FileAllowed(['jpg', 'png'], 'Images only!')
-    ])
-    submit_pic = SubmitField('Upload')
+    listOfPets = TextAreaField('Pets')
+    submit = SubmitField('Save')
 
 class UploadImageForm(FlaskForm):
     image = FileField('image', validators=[
@@ -35,3 +29,8 @@ class MessageForm(FlaskForm):
     message = TextAreaField('message', validators=[
         DataRequired()])
     submit = SubmitField('Submit')
+
+class ReplyForm(FlaskForm):
+    message = TextAreaField('message', validators=[
+        DataRequired()])
+    submit = SubmitField('Reply')
