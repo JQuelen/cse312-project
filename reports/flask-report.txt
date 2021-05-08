@@ -1,0 +1,40 @@
+Flask
+
+Developers:
+Jackson Kamp (jakamp@buffalo.edu)
+Joyce (joycesom@buffalo.edu)
+John (cantopra@buffalo.edu)
+Dom Sciarrino (dpsciarr@buffalo.edu)
+
+
+Introduction:
+	Flask is the library that we used the most in our application. Flask has been very useful for rendering templates, 
+  creating redirects, error messages and more. Flask is used all throughout our application, including the initial 
+  project startup, whenever a new page is created or rendered, creating redirects, obtaining urls, and when users 
+  input the incorrect username or password on a form. Flask can be found here: https://github.com/pallets/flask. 
+
+
+Flask
+	Flask is used for building our web application. The initial use of Flask is with the Flask class found in 
+  flask/src/flask/app.py. This class is used to create the application, which is in cse312-project/app/__init__.py. 
+  We also used the render_template function defined in flask/src/flask/templating.py. This function provides an HTML 
+  template for each of our pages. You can find the use of this function in our application in 
+  cse312-project/routes.py. Some other imports included in this file include flash, which creates a flash message 
+  after a certain trigger, redirect, which returns a user to a different page using a redirect GET request, 
+  url_for, which generates the url of a particular variable, make_response, which allows the login form to 
+  create a response without sending it in order to add a header, and request, which returns a local proxy parameter. 
+  
+	We use Flask on our site on various occasions. In our routes section, we use request to obtain the information 
+  from our ‘userauth’ cookies, which we do in index, login, register, user, editProfile, upload, message and 
+  reply routes and functions. We used Flash in the login and register forms to notify the user if they enter an 
+  incorrect username or password. We use the make_response function whenever we want to send a post request with 
+  added information to the header. In our case, we used make_response in order to add the information from the 
+  ‘userauth’ cookie to the header of the response. Redirect creates a return response for certain routes in our 
+  code. For example, a user is redirected to the login page if they aren’t already logged in when they enter 
+  the homepage, or a user is redirected to the user page if they are finished updating their profile. 
+  The url_for function helps with this process by returning the url needed for those certain pages to be open. 
+  Lastly, the render_template function is used to render the HTML templates, and replaces any template 
+  information with additional parameters included in the function call. One example of using the 
+  render_template function is with the profile route. In this route, the function renders the ‘user.html’
+  file, replaces the ‘name’ placeholder with the name of the user, and the ‘listOfPets’ placeholder with 
+  the list of the user’s pets.
