@@ -1,0 +1,65 @@
+Flask-WTF and WTForms
+
+Developers:
+Jackson Kamp (jakamp@buffalo.edu)
+Joyce (joycesom@buffalo.edu)
+John (cantopra@buffalo.edu)
+Dom Sciarrino (dpsciarr@buffalo.edu)
+
+Introduction:
+	Flask-WTF and WTForms are libraries that generate forms for certain pages. We used 
+  Flask-WTF to import parameters such as FlaskForm, FileField, FileAllowed and 
+  FileRequired and we imported StringField, PasswordField, BooleanField, SubmitField, 
+  TextAreaField, and DataRequired from WTForms. These functions help to create the 
+  different forms for our project, including the LoginForm, Registration Form, 
+  EditProfileForm, UploadImageForm, MessageForm and ReplyForm. WTForms can be found 
+  on this site: https://github.com/wtforms/wtforms and Flask-WTF can be found on 
+  this page: https://github.com/lepture/flask-wtf.
+
+WTForms
+	WTForms is a form validation and rendering library for Python. We use the fields in 
+  the library to make fields for certain inputs and parameters for the forms. The main
+  parameters that we took from WTForms are the different types of fields for user 
+  interaction. The specific things include the StringField class which is found in 
+  wtforms/src/wtforms/fields/core.py. This lets the user to enter a string into a 
+  form field. Another source is found in wtforms/src/wtforms/fields/simple.py. 
+  This file contains the TextAreaField, PasswordField, FileField, and SubmitField 
+  classes. These classes allow the user to add text areas, passwords, files, and 
+  submit buttons respectively to the forms. Lastly, in wtforms/src/wtforms/validators.py,
+  we imported the DataRequired class, which checks to see if the data attribute of 
+  the field is required when submitting a form.
+  
+	This library helped us interact with the users by establishing the form parameters. 
+  In the  LoginForm, we included a StringField for the username, PasswordField for the 
+  password, a BooleanField for the remember me checkbox, and a SubmitField to submit 
+  the form. For the RegistrationForm, we included a StringField for the username, 
+  PasswordField for the password, and SubmitField for the submit button. For the 
+  EditProfileForm, we included a TextAreaField for the listOfPets, and SubmitField 
+  for the submit button. The UploadImageForm included a FileField for the pictures 
+  to be uploaded. For the MessageForm, we included a TextAreaField for the message 
+  and a SubmitField for the submit button. Lastly, in the ReplyForm, we included a 
+  TextAreaField for the message and a SubmitField for the submit button. The 
+  DataRequired parameter was used for things like the usernames, passwords, and 
+  messages. Without the imports, we would not be able to have the users enter any 
+  information into the forms.
+
+
+Flask-WTF
+	Flask-WTF integrates WTForms into Flask. The main parameter that we integrated was 
+  FlaskForm, which is found in the file flask-wtf/flask_wtf/form.py. FlaskForm creates 
+  a WTForm and integrates Flask parameters. We also included two parameters from 
+  flask-wtf/flask_wtf/file.py, which is FileAllowed and FileRequired. FileAllowed 
+  limits the submission type of a FileField to certain types, determined by the 
+  programmer. FileRequired validates that the data given in the field is a Werkzeug object.
+  
+	The primary purpose of Flask-WTF is to create working forms that integrate with our 
+  Flask structure. We import these parameters into our project in 
+  cse312-project/app/forms.py. A FlaskForm is used in every form so that the form
+  will properly submit the data taken from the user, which will be stored in the 
+  database to be used for later. FileAllowed and FileRequired are strictly used 
+  for the UploadImageForm to limit the files allowed to a ‘jpg’ and ‘png’ files 
+  only. This makes sure that the files the users submit are files that the app can process.
+
+
+
+
