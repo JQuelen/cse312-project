@@ -1,0 +1,70 @@
+﻿Jinja
+
+
+Developers:
+* Jackson Kamp (jakamp@buffalo.edu)
+* Joyce (joycesom@buffalo.edu)
+* John (cantopra@buffalo.edu)
+* Dom Sciarrino (dpsciarr@buffalo.edu)
+
+
+Introduction
+
+Jinja is the template engine we used for our application. Although we do not 
+explicitly import anything from Jinja, Flask relies a lot on Jinja for templating. 
+The primary template function that we use is the render_template function in Flask. 
+This function allows us to create HTML templates and the arguments that the function 
+receives will be used to update the placeholders. Jinja can be found on this page: 
+https://github.com/pallets/jinja. 
+
+
+Usage in Petstagram
+
+
+The render_template() function is found on line 130 in the templating.py file in the
+Flask source code.
+
+[https://github.com/pallets/flask/blob/master/src/flask/templating.py]
+
+This function makes a call so the _render() function at line 121. 
+The _render() function operates on a Template object. The Template class can be found 
+in the Jinja documentation in the environment.py file at line 980. It is the central 
+templating object and is responsible for managing its modification.
+
+[https://github.com/pallets/jinja/blob/master/src/jinja2/environment.py]
+
+
+The Jinja templating engine is utilized by placing double curly brackets around a 
+variable within a string, like so:
+
+<p> This is my var: {{ var }} </p>
+
+When the template is rendered, a context dictionary that is passed to the Template
+object is read and used to substitute the variables with content.
+[https://github.com/pallets/jinja/blob/master/docs/templates.rst]
+
+Not only can Jinja manage variables, but also expressions ( {%  expr  %} ) and 
+comments ( {#  comment  #} ).
+
+Petstagram also makes use of template inheritance by using the Jinja keywords 
+‘block’ and ‘extends’. Our Petstagram header in base.html contains the logo 
+image and a navigation bar for each page. In the body section of base.html, we 
+have the line:
+
+{% block content %}{% endblock %}
+
+The reserved words ‘block’ and ‘endblock’ are used to denote the replacement 
+of this section of the template with an entire file’s contents. The HTML file 
+this is stored in is considered the base template.
+[https://github.com/pallets/jinja/blob/master/docs/templates.rst#base-template]
+
+The child templates therefore extend the content of the base template:
+
+{% extends "base.html" %}
+
+The child template maps its contents to the base template by utilizing the 
+following labels, matching the contents in the base.html:
+
+{% block content %}
+… content ...
+{% endblock %}
